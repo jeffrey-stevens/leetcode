@@ -1,26 +1,14 @@
-#include "two-sum.c"
 
 #include <stdlib.h>
+#include <stdio.h>
+
+#include "two-sum.h"
 
 
 const int RAND_SEED = 692;
 const int NUMS_SIZE_MIN = 2;
 const int NUMS_SIZE_MAX = 20;
 const int MAX_NUM = 50;
-
-
-typedef struct {
-    int * array;
-    int size;
-} NumsArray;
-
-typedef struct {
-    int i;
-    int j;
-    int num1;
-    int num2;
-    int sum;
-} Target;
 
 
 NumsArray build_nums() {
@@ -97,7 +85,7 @@ void print_sampling(const NumsArray nums, const Target target) {
 }
 
 
-void test_two_sum() {
+void test_algorithm(Algorithm algorithm) {
 
     srand(RAND_SEED);
     
@@ -108,7 +96,7 @@ void test_two_sum() {
 
     // Find two numbers that sum to the target
     int returnSize;
-    int * indices = twoSum(nums.array, nums.size, target.sum, &returnSize);
+    int * indices = algorithm(nums, target, &returnSize);
 
     // Assumes that the size of the returned array is 2
     int i = indices[0];
