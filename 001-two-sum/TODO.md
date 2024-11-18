@@ -1,6 +1,7 @@
 # Todo
 
-* Specify the seed as input
+* Specify the seed on the command line
+* Modify the test function to accept the Options object.
 
 ## Features
 
