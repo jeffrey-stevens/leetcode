@@ -2,6 +2,8 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 
+#include "error.h"
+
 #include <stdlib.h>
 
 
@@ -25,9 +27,13 @@ int compare_values(const void * arg1, const void * arg2) {
 }
 
 
-IndexedValue * sorted_indices(int * nums, int numsSize) {
+IndexedValue * sorted_values(int * nums, int numsSize) {
 
     IndexedValue * indexed_values = (IndexedValue *) malloc(numsSize * sizeof(IndexedValue));
+
+    if (indexed_values == NULL) {
+        fatal_error("Unable to allocate memory for the array of indexed values.");
+    }
 
     for (int i = 0; i < numsSize; i++) {
        indexed_values->value = nums[i];
@@ -42,12 +48,57 @@ IndexedValue * sorted_indices(int * nums, int numsSize) {
 
 int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
 
-    // Create an array of indices and sort it by value
-    IndexedValue * indexed_values = sorted_indices(nums, numsSize); 
+    int * solution = (int *) malloc(2 * sizeof(int));
+    if (solution == NULL) {
+        fatal_error("Unable to allocate memory for the solution array.");
+    }
+    int retSize;
 
-    // Traverse the diagonal until the boundary is reached
+    // Create an array of indices and sort it by value
+    IndexedValue * indexed_values = sorted_values(nums, numsSize); 
+
+    // Traverse the edge of the upper diagonal until the boundary is reached
+    int i = 0, j = 1;
+    int sum = indexed_values[i].value + indexed_values[j].value;
+
+    while (j < numsSize - 1 && sum < target) {
+        ++i;
+        ++j;
+        sum = indexed_values[i].value + indexed_values[j].value;
+    }
+    // This will be at either:
+    // 1) The lower-right corner of the upper diagonal matrix (j = numsSize - 1)
+    // 2) The first entry that's greater than or equal to the target 
+    // 3) Both
 
     // Traverse the boundary, looking for the target
+    while (sum != target) {
+        if (sum < target && j < numsSize - 1) {
+            // Check the next element to the right
+            ++j;
+            sum = indexed_values[i].value + indexed_values[j].value;
+        } else if (sum > target && i > 0) {
+            // Check the next element above the present one
+            --i;
+            sum = indexed_values[i].value + indexed_values[j].value;
+        } else {
+            break;
+        }
+    }
+
+    if (sum == target) {
+        // The solution is found!
+        solution[0] = indexed_values[i].index;
+        solution[1] = indexed_values[j].index;
+        retSize = 2;
+    } else {
+        // There's no solution
+        solution[0] = solution[1] = -1;
+        retSize = 0;
+    }
 
     free(indexed_values);
+
+    *returnSize = retSize;
+    return solution;
 }
