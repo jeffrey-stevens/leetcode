@@ -98,21 +98,26 @@ void test_algorithm(Algorithm algorithm) {
     int returnSize;
     int * indices = algorithm(nums.array, nums.size, target.sum, &returnSize);
 
-    // Assumes that the size of the returned array is 2
-    int i = indices[0];
-    int j = indices[1];
-    int num1 = nums.array[i];
-    int num2 = nums.array[j];
-    int sum = num1 + num2;
-    printf("The algorithm has selected numbers %d (index %d) and %d (index %d).\n",
-        num1, i, num2, j);
-    printf("The sum of the two is %d.\n", sum);
+    if (returnSize < 2) {
+        // No solution was found.
+        puts("No solution was found.");
 
-    // Report the results of the test
-    if (sum == target.sum) {
-        printf("The test was successful!\n");
     } else {
-        printf("The test failed.\n");
+        int i = indices[0];
+        int j = indices[1];
+        int num1 = nums.array[i];
+        int num2 = nums.array[j];
+        int sum = num1 + num2;
+        printf("The algorithm has selected numbers %d (index %d) and %d (index %d).\n",
+            num1, i, num2, j);
+        printf("The sum of the two is %d.\n", sum);
+
+        // Report the results of the test
+        if (sum == target.sum) {
+            printf("The test was successful!\n");
+        } else {
+            printf("The test failed.\n");
+        }
     }
 
     // Free all allocated memory
