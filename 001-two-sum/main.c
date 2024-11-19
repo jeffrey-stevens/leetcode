@@ -1,4 +1,5 @@
 #include "types.h"
+#include "error.h"
 #include "solution-1.h"
 #include "test.h"
 
@@ -16,12 +17,6 @@ typedef struct {
 typedef struct {
     Algorithm algorithm;
 } Options;
-
-
-void fatal_error(char message[]) {
-    puts(message);
-    exit(EXIT_FAILURE);
-}
 
 
 void shift_args(Args * args) {

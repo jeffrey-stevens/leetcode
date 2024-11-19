@@ -1,8 +1,8 @@
 include ../environment.mk
 
 
-SRC = test.c main.c solution-1-wrapper.c
-HEADERS = types.h test.h solution-1.h 
+SRC = main.c error.c solution-1-wrapper.c test.c
+HEADERS = types.h error.h test.h solution-1.h 
 TARGET = two-sum.exe
 
 .PHONY: all build clean
