@@ -3,11 +3,11 @@
 // modify the implementation.  Thus the implementation code can be copied
 // directly into LeetCode without carrying over any baggage.
 
-#include "two-sum-double-loop-wrapper.h"
+#include "solution-1.h"
 
 static int* twoSum(int* nums, int numsSize, int target, int* returnSize);
 
-#include "two-sum-double-loop.c"
+#include "solution-1.c"
 
 int * two_sum_double_loop(NumsArray nums, Target target, int * returnSize) {
     return twoSum(nums.array, nums.size, target.sum, returnSize);

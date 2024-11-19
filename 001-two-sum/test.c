@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "two-sum.h"
+#include "types.h"
 
 
 const int RAND_SEED = 692;

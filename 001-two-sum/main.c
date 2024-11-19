@@ -1,5 +1,5 @@
-#include "two-sum.h"
-#include "two-sum-double-loop-wrapper.h"
+#include "types.h"
+#include "solution-1.h"
 #include "test.h"
 
 #include <stdlib.h>

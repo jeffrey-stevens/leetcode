@@ -4,7 +4,7 @@ NDEBUG = $(OPTIM)
 DEBUG_OPTIM = -O0
 DEBUG = -g $(DEBUG_OPTIM)
 
-SOURCES = test.c main.c two-sum-double-loop-wrapper.c
+SOURCES = test.c main.c solution-1-wrapper.c
 BINARY = two-sum.exe
 
 
