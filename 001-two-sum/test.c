@@ -96,7 +96,7 @@ void test_algorithm(Algorithm algorithm) {
 
     // Find two numbers that sum to the target
     int returnSize;
-    int * indices = algorithm(nums, target, &returnSize);
+    int * indices = algorithm(nums.array, nums.size, target.sum, &returnSize);
 
     // Assumes that the size of the returned array is 2
     int i = indices[0];

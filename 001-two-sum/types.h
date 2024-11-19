@@ -14,6 +14,7 @@ typedef struct {
     int sum;
 } Target;
 
-typedef int * (*Algorithm)(NumsArray, Target, int *);
+// typedef int * (*Algorithm)(NumsArray, Target, int *);
+typedef int * (*Algorithm)(int *, int, int, int *);
 
 #endif
