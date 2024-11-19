@@ -8,6 +8,10 @@
 * Implement the O(n log n) algorithm.
 * Specify the random seed on the command line
 
+## Modifications
+
+* Implement different algorithms as different programs?
+
 ## Misc
 
 * Include asserts.
