@@ -1,13 +1,20 @@
 include ../environment.mk
 
 
-SOURCES = test.c main.c solution-1-wrapper.c
+SRC = test.c main.c solution-1-wrapper.c
+HEADERS = types.h test.h solution-1.h 
 TARGET = two-sum.exe
 
-all: $(TARGET)
+.PHONY: all build clean
 
-build: $(SOURCES)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCES)
+
+all: build
+
+build: $(TARGET)
+
+# Just recompile everything if something changes
+$(TARGET): $(SRC) $(HEADERS)
+	$(CC) $(CFLAGS) -o $@ $(SRC)
 
 clean:
 	rm ./*.exe
