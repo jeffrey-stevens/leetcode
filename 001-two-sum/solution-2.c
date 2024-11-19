@@ -61,7 +61,7 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
     int i = 0, j = 1;
     int sum = indexed_values[i].value + indexed_values[j].value;
 
-    while (j < numsSize - 1 && sum < target) {
+    while (sum < target && j < numsSize - 1) {
         ++i;
         ++j;
         sum = indexed_values[i].value + indexed_values[j].value;
@@ -72,18 +72,18 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
     // 3) Both
 
     // Traverse the boundary, looking for the target
-    while (sum != target) {
-        if (sum < target && j < numsSize - 1) {
-            // Check the next element to the right
+    while ( (sum < target && j < numsSize - 1) ||
+            (sum > target && i > 0) ) {
+        
+        if (sum < target) {
+            // Check the next element to the right of the present one
             ++j;
-            sum = indexed_values[i].value + indexed_values[j].value;
-        } else if (sum > target && i > 0) {
+        } else {
+            // sum > target
             // Check the next element above the present one
             --i;
-            sum = indexed_values[i].value + indexed_values[j].value;
-        } else {
-            break;
         }
+        sum = indexed_values[i].value + indexed_values[j].value;
     }
 
     if (sum == target) {
