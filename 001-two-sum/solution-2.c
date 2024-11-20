@@ -36,8 +36,8 @@ IndexedValue * sorted_nums(int * nums, int numsSize) {
     }
 
     for (int i = 0; i < numsSize; i++) {
-       indexed_values->value = nums[i];
-       indexed_values->index = i; 
+       indexed_values[i].value = nums[i];
+       indexed_values[i].index = i; 
     }
 
     qsort(indexed_values, numsSize, sizeof(IndexedValue), compare_values);
