@@ -27,7 +27,7 @@ int compare_values(const void * arg1, const void * arg2) {
 }
 
 
-IndexedValue * sorted_values(int * nums, int numsSize) {
+IndexedValue * sorted_nums(int * nums, int numsSize) {
 
     IndexedValue * indexed_values = (IndexedValue *) malloc(numsSize * sizeof(IndexedValue));
 
@@ -55,9 +55,9 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
     int retSize;
 
     // Create an array of indices and sort it by value
-    IndexedValue * indexed_values = sorted_values(nums, numsSize); 
+    IndexedValue * indexed_values = sorted_nums(nums, numsSize); 
 
-    // Traverse the edge of the upper diagonal until the boundary is reached
+    // Traverse the edge of the upper triangular matrix until the boundary is reached
     int i = 0, j = 1;
     int sum = indexed_values[i].value + indexed_values[j].value;
 
