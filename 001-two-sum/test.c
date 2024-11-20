@@ -1,6 +1,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #include "types.h"
 #include "options.h"
@@ -89,6 +90,7 @@ void test_algorithm(const Options * options) {
 
     if (options->randomize_seed) {
         // TODO:  Add randomized seed
+        srand((unsigned int) time(NULL));
     } else {
         srand(options->seed);
     }
