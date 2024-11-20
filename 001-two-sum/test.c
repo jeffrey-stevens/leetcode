@@ -3,9 +3,9 @@
 #include <stdio.h>
 
 #include "types.h"
+#include "options.h"
 
 
-const int RAND_SEED = 692;
 const int NUMS_SIZE_MIN = 2;
 const int NUMS_SIZE_MAX = 20;
 const int MAX_NUM = 50;
@@ -85,9 +85,13 @@ void print_sampling(const NumsArray nums, const Target target) {
 }
 
 
-void test_algorithm(Algorithm algorithm) {
+void test_algorithm(const Options * options) {
 
-    srand(RAND_SEED);
+    if (options->randomize_seed) {
+        // TODO:  Add randomized seed
+    } else {
+        srand(options->seed);
+    }
     
     // Create a random array of integers and the target, and print the results
     NumsArray nums = build_nums();
@@ -96,7 +100,7 @@ void test_algorithm(Algorithm algorithm) {
 
     // Find two numbers that sum to the target
     int returnSize;
-    int * indices = algorithm(nums.array, nums.size, target.sum, &returnSize);
+    int * indices = options->algorithm(nums.array, nums.size, target.sum, &returnSize);
 
     if (returnSize < 2) {
         // No solution was found.

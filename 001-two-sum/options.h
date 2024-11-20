@@ -1,4 +1,10 @@
+#ifndef __OPTIONS_H__
+#define __OPTIONS_H__
+
 #include "types.h"
+
+#include <stdbool.h>
+
 
 typedef struct {
     int argc;
@@ -7,7 +13,11 @@ typedef struct {
 
 typedef struct {
     Algorithm algorithm;
+    bool randomize_seed;
+    unsigned int seed;
 } Options;
 
 
 void parse_args(Args * args, Options * options);
+
+#endif

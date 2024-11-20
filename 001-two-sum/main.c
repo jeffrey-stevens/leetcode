@@ -3,11 +3,17 @@
 #include "solution.h"
 #include "test.h"
 
+#include <stdbool.h>
+
+const int RAND_SEED = 692;
+
 
 int main(int argc, char * argv[]) {
 
     Options options = {
-        .algorithm = (Algorithm) twoSum
+        .algorithm = (Algorithm) twoSum,
+        .randomize_seed = false,
+        .seed = RAND_SEED
     };
 
     Args args = {
@@ -16,7 +22,7 @@ int main(int argc, char * argv[]) {
     };
     parse_args(&args, &options);
 
-    test_algorithm(options.algorithm);
+    test_algorithm(&options);
 
     return 0;
 }
