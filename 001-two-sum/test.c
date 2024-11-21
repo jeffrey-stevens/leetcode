@@ -8,7 +8,6 @@
 
 
 const int NUMS_SIZE_MIN = 2;
-const int NUMS_SIZE_MAX = 20;
 
 
 NumsArray build_nums(const Options * options) {
@@ -16,7 +15,7 @@ NumsArray build_nums(const Options * options) {
     NumsArray nums; 
 
     // Randomly select the array size
-    nums.size = NUMS_SIZE_MIN + rand() % (NUMS_SIZE_MAX - NUMS_SIZE_MIN + 1);
+    nums.size = NUMS_SIZE_MIN + rand() % (options->array_size_max - NUMS_SIZE_MIN + 1);
 
     // Create the array of integers
     nums.array = (int *) malloc(nums.size * sizeof(int));

@@ -14,7 +14,8 @@
 
 #define BUFFER_SIZE 256
 
-const long MAX_NUM = 1000000000;
+const long MAX_NUM = 1000000000L;
+const long MAX_ARRAY_SIZE = 10000L;
 
 
 static void shift_args(Args * args) {
@@ -137,6 +138,49 @@ static void parse_num_max(Args * args, Options * options) {
 }
 
 
+static void parse_array_size_max(Args * args, Options * options) {
+
+    static bool opt_given = false;
+    if (opt_given) {
+        fatal_error("Multiple --array_size_max arguments are not allowed.");
+    }
+
+    // This probably isn't needed here since MAX_ARRAY_SIZE shouldn't be very large...
+    long size_upper_bound = (MAX_ARRAY_SIZE < INT_MAX) ? MAX_ARRAY_SIZE : INT_MAX;
+
+    char out_of_range_msg[BUFFER_SIZE];
+    int chars_written = snprintf(out_of_range_msg, BUFFER_SIZE, 
+        "--array-size-max requires a integer argument between 2 and %ld, inclusive.",
+        size_upper_bound);
+    // Check that chars_written makes sense
+
+    if (args->argc <= 0) {
+        fatal_error(out_of_range_msg);
+    }
+
+    char * array_size_max_arg = args->argv[0];
+
+    // Parse the integer
+    char * endptr;
+    long array_size_max = strtol(array_size_max_arg, &endptr, 10);
+
+    if (endptr == array_size_max_arg || *endptr != '\0') {
+        fatal_error(out_of_range_msg);
+    }
+
+    if ( array_size_max < 2 || array_size_max > (long) size_upper_bound || 
+        (array_size_max == LONG_MAX && errno == ERANGE) ) {
+        fatal_error(out_of_range_msg);
+    }
+
+    // array_size_max should be safe to convert to an int
+    options->array_size_max = (int) array_size_max;
+
+    opt_given = true;
+    shift_args(args);
+}
+
+
 static void parse_option(Args * args, Options * options) {
 
     char * opt = args->argv[0];
@@ -156,7 +200,11 @@ static void parse_option(Args * args, Options * options) {
         shift_args(args);
         parse_num_max(args, options);
 
-    } else {
+    } else if (strcmp(opt, "--array-size-max") == 0) {
+        shift_args(args);
+        parse_array_size_max(args, options);
+    }
+    else {
         fatal_error("Option not supported.");
     }
 }

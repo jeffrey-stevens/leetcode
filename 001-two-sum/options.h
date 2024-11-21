@@ -16,6 +16,7 @@ typedef struct {
     bool randomize_seed;
     unsigned int seed;
     int num_max;
+    int array_size_max;
 } Options;
 
 
