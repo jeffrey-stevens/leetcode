@@ -9,10 +9,9 @@
 
 const int NUMS_SIZE_MIN = 2;
 const int NUMS_SIZE_MAX = 20;
-const int MAX_NUM = 50;
 
 
-NumsArray build_nums() {
+NumsArray build_nums(const Options * options) {
 
     NumsArray nums; 
 
@@ -28,8 +27,9 @@ NumsArray build_nums() {
 
     // Populate the array with random integers
     for (int i = 0; i < nums.size; ++i) {
-        nums.array[i] = rand() % (2 * MAX_NUM + 1) - MAX_NUM;
+        nums.array[i] = rand() % (2 * options->num_max + 1) - options->num_max;
         // Should check that these aren't equal to any of the other numbers...
+        // Could this overflow?
     }
 
     return nums;
@@ -96,7 +96,7 @@ void test_algorithm(const Options * options) {
     }
     
     // Create a random array of integers and the target, and print the results
-    NumsArray nums = build_nums();
+    NumsArray nums = build_nums(options);
     Target target = choose_target(nums);
     print_sampling(nums, target);
 

@@ -12,6 +12,11 @@
 #include <errno.h>
 
 
+#define BUFFER_SIZE 256
+
+const long MAX_NUM = 1000000000;
+
+
 static void shift_args(Args * args) {
     --(args->argc);
     ++args->argv;
@@ -80,10 +85,52 @@ static void parse_seed(Args * args, Options * options) {
             fatal_error("The seed is out-of-range.");
         }
 
-        // The seed should be save to convert to an unsigned int
+        // The seed should be safe to convert to an unsigned int
         options->randomize_seed = false;
         options->seed = (unsigned int) seed;
     }
+
+    opt_given = true;
+    shift_args(args);
+}
+
+
+static void parse_num_max(Args * args, Options * options) {
+
+    static bool opt_given = false;
+    if (opt_given) {
+        fatal_error("Multiple --num-max arguments are not allowed.");
+    }
+
+    long num_upper_bound = (MAX_NUM < INT_MAX) ? MAX_NUM : INT_MAX;
+
+    char out_of_range_msg[BUFFER_SIZE];
+    int chars_written = snprintf(out_of_range_msg, BUFFER_SIZE, 
+        "--num-max requires a integer argument between 0 and %ld, inclusive.",
+        num_upper_bound);
+    // Check that chars_written makes sense
+
+    if (args->argc <= 0) {
+        fatal_error(out_of_range_msg);
+    }
+        
+    char * num_max_arg = args->argv[0];
+
+    // Parse the integer
+    char * endptr;
+    long num_max = strtol(num_max_arg, &endptr, 10);
+
+    if (endptr == num_max_arg || *endptr != '\0') {
+        fatal_error(out_of_range_msg);
+    }
+
+    if ( num_max < 0 || num_max > (long) num_upper_bound || 
+        (num_max == LONG_MAX && errno == ERANGE) ) {
+        fatal_error(out_of_range_msg);
+    }
+    
+    // num_max should be safe to convert to an int
+    options->num_max = (int) num_max;
 
     opt_given = true;
     shift_args(args);
@@ -104,6 +151,10 @@ static void parse_option(Args * args, Options * options) {
     if (strcmp(opt, "--seed") == 0) {
         shift_args(args);
         parse_seed(args, options);
+
+    } else if (strcmp(opt, "--num-max") == 0) {
+        shift_args(args);
+        parse_num_max(args, options);
 
     } else {
         fatal_error("Option not supported.");

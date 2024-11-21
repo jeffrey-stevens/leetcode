@@ -6,6 +6,7 @@
 #include <stdbool.h>
 
 const int RAND_SEED = 692;
+const int DEFAULT_NUM_MAX = 100;
 
 
 int main(int argc, char * argv[]) {
@@ -13,7 +14,8 @@ int main(int argc, char * argv[]) {
     Options options = {
         .algorithm = (Algorithm) twoSum,
         .randomize_seed = false,
-        .seed = RAND_SEED
+        .seed = RAND_SEED,
+        .num_max = DEFAULT_NUM_MAX
     };
 
     Args args = {
