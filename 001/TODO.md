@@ -1,21 +1,17 @@
 # Todo
 
-* Modify the test function to accept the Options object.
-* Simplify the name of the solution files to something like "solution-1.c".
 
 ## Features
 
-* Implement the O(n log n) algorithm.
-* Specify the random seed on the command line
+* Command-line arguments
+  * If the array length is random or fixed
+  * Turn on-off verbose printing
 
 ## Modifications
 
-* Implement different algorithms as different programs?
+* Generalize the processing of command-line options.
 
 ## Misc
 
 * Include asserts.
-  * Add -DDEBUG/-DNDDBUG compiler options to the makefile.
-* Summarize the LeetCode compiler environment.
-* Specify gcc11 as the C standard.
-* Clean up the makefile.
+* Include a test suite for the main algorithms.
