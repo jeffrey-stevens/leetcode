@@ -1,4 +1,5 @@
 #include "options.h"
+#include "option-handlers.h"
 
 #include <stdlib.h>
 #include <stdbool.h>

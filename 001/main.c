@@ -14,9 +14,10 @@ const int DEFAULT_ARRAY_SIZE_MAX = 20;
 int main(int argc, char * argv[]) {
 
     // Register command-line options
-    register_option("--seed", true, false, parse_seed);
-    register_option("--num_max", true, false, parse_num_max);
-    register_option("--array-size-max", true, false, parse_array_size_max);
+    register_option("--seed", true, false, (OptionHandler) parse_seed);
+    register_option("--num_max", true, false, (OptionHandler) parse_num_max);
+    register_option("--array-size-max", true, false,
+        (OptionHandler) parse_array_size_max);
 
     Options options = {
         .algorithm = (Algorithm) twoSum,

@@ -1,5 +1,5 @@
-#ifndef __OPTIONS_H__
-#define __OPTIONS_H__
+#ifndef OPTIONS_H
+#define OPTIONS_H
 
 #include "types.h"
 
