@@ -39,6 +39,12 @@ void register_option(const char * option_name, const bool requires_arg,
     const bool allow_multiple, OptionHandler option_handler) {
 
     OptionsNode * options_node = (OptionsNode *) malloc(sizeof(OptionsNode));
+    if (options_node == NULL) {
+        fatal_error(
+            "Unable to allocate memory for the command-line options register."
+        );
+    }
+
     options_node->option_name = option_name;
     options_node->requires_arg = requires_arg;
     options_node->allow_multiple = allow_multiple;
@@ -51,6 +57,17 @@ void register_option(const char * option_name, const bool requires_arg,
     OptionsNode * old_register = options_register;
     options_register = options_node;
     options_node->next = old_register;
+}
+
+
+void free_options_register() {
+    OptionsNode * curr_node = options_register;
+    OptionsNode * next_node;
+    while (curr_node != NULL) {
+       next_node = curr_node->next; 
+       free(curr_node);
+       curr_node = next_node;
+    }
 }
 
 
@@ -114,4 +131,7 @@ void parse_args(Args * args, Options * options) {
             fatal_error("Invalid argument.");
         }
     }
+
+    // The command-line options register is no longer necessary
+    free_options_register();
 }
