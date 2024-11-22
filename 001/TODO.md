@@ -1,5 +1,6 @@
 # Todo
 
+* Add more specific error messages to the handling of command-line options.
 
 ## Features
 
