@@ -15,7 +15,7 @@ int main(int argc, char * argv[]) {
 
     // Register command-line options
     register_option("--seed", true, false, (OptionHandler) parse_seed);
-    register_option("--num_max", true, false, (OptionHandler) parse_num_max);
+    register_option("--num-max", true, false, (OptionHandler) parse_num_max);
     register_option("--array-size-max", true, false,
         (OptionHandler) parse_array_size_max);
 
