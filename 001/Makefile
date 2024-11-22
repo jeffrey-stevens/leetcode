@@ -1,9 +1,9 @@
 include ../environment.mk
 
-SRC = main.c error.c options.c test.c
+SRC = main.c error.c options.c option-handlers.c test.c
 SRC_1 = $(SRC) solution-1.c
 SRC_2 = $(SRC) solution-2.c
-HEADERS = types.h error.h options.c test.h solution.h
+HEADERS = types.h error.h options.h option-handlers.h test.h solution.h
 TARGET_1 = two-sum-1.exe
 TARGET_2 = two-sum-2.exe
 
