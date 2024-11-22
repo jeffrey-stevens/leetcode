@@ -1,22 +1,17 @@
 #include "types.h"
 #include "error.h"
 #include "options.h"
-#include "solution.h"
-#include "test.h"
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include <limits.h>
 #include <errno.h>
-#include <assert.h>
 
 
 #define BUFFER_SIZE 256
 
 
-typedef void (*OptionHandler)(char * arg, Options *);
 
 typedef struct OptionsNodeStruct OptionsNode;
 
@@ -30,15 +25,14 @@ struct OptionsNodeStruct {
 };
 
 
+// Does this really need to be global?
+static OptionsNode * options_register = NULL;
+
+
 static void shift_args(Args * args) {
     --(args->argc);
     ++args->argv;
 };
-
-
-
-// Does this really need to be global?
-static OptionsNode * options_register = NULL;
 
 
 void register_option(const char * option_name, const bool requires_arg,
@@ -60,7 +54,7 @@ void register_option(const char * option_name, const bool requires_arg,
 }
 
 
-OptionsNode * find_option(char * option_name) {
+static OptionsNode * find_option(char * option_name) {
     OptionsNode * curr_option = options_register;
 
     while ( curr_option != NULL

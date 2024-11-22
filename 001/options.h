@@ -20,6 +20,12 @@ typedef struct {
 } Options;
 
 
+typedef void (*OptionHandler)(char * arg, Options *);
+
+
+void register_option(const char * option_name, const bool requires_arg,
+    const bool allow_multiple, OptionHandler option_handler);
+
 void parse_args(Args * args, Options * options);
 
 #endif
